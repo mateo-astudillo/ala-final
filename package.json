@@ -1,0 +1,20 @@
+{
+  "name": "tasks-tfi",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Mateo",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js"
+  },
+  "dependencies": {
+    "@types/prompts": "^2.4.9",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}
