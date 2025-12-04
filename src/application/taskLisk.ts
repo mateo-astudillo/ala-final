@@ -1,5 +1,4 @@
-import { Status } from "../types";
-import { Task } from "./task";
+import type { Status, Task } from "../types.js";
 
 export interface TaskList {
   tasks: Task[]

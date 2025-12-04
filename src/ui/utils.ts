@@ -1,5 +1,5 @@
-import { Task } from "../tasks/task.js";
-import type { Choices, Difficulty, Status } from "../types.js";
+import type { Answers } from "prompts";
+import type { Choices, Difficulty, Status, Task } from "../types.js";
 
 const STATUS_LABELS: Record<Status, number> = {
   "to do": 0,
@@ -64,3 +64,4 @@ export function toChoices(tasks: Task[]): Choices {
 
   return choices;
 }
+

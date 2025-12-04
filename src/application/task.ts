@@ -1,5 +1,5 @@
-import { Task, TaskDTO } from "../domain";
-import { difficultyLabels, statusLabels } from "./utils";
+import type { Task, TaskDTO } from "../types.js";
+import { difficultyLabels, statusLabels } from "./utils.js";
 
 // PURE
 export function fromDTO(id: string, now: Date, taskDTO: TaskDTO): Task {
@@ -12,6 +12,7 @@ export function fromDTO(id: string, now: Date, taskDTO: TaskDTO): Task {
     createdAt: now,
     updatedAt: now,
     dueDate: taskDTO.dueDate ?? undefined,
+    active: true
   };
 };
 
@@ -26,11 +27,12 @@ export function toUpdatedTask(task: Task, taskDTO: TaskDTO): Task {
     createdAt: task.createdAt,
     updatedAt: task.updatedAt,
     dueDate: taskDTO.dueDate,
+    active: task.active
   };
 };
 
 // PURE
-export function toDeletedTask(task: Task): Task {
+export function toDeletedTask(task: Task, now: Date): Task {
   return {
     id: task.id,
     title: task.title,
@@ -38,8 +40,9 @@ export function toDeletedTask(task: Task): Task {
     difficulty: task.difficulty,
     status: task.status,
     createdAt: task.createdAt,
-    updatedAt: task.updatedAt,
+    updatedAt: now,
     dueDate: task.dueDate,
+    active: false
   };
 };
 

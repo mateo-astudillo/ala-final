@@ -3,15 +3,15 @@ import type { Choice } from "prompts";
 export type Status = "to do" | "in progress" | "done" | "cancelled";
 export type Difficulty = "hard" | "medium" | "easy";
 export type Choices = Choice[];
-export type Action = "seeTasks" | "searchTask" | "addTask" | "exit" | "cancel";
-export type Filter = Status | "all" | "back";
+export type Action = "seeTasks" | "searchTask" | "addTask" | "exit";
+export type Filter = Status | "all";
 
 export interface TaskDTO {
-    title: string;
-    description?: string;
-    difficulty?: Difficulty;
-    status?: Status;
-    dueDate: Date;
+  title: string;
+  description?: string;
+  difficulty?: Difficulty;
+  status?: Status;
+  dueDate: Date;
 }
 
 export interface Task {
@@ -23,17 +23,17 @@ export interface Task {
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly dueDate: Date;
+  readonly active: boolean;
 };
 
 export type DisabledStatus = {
+  cancelled: boolean;
   toDo: boolean,
   inProgress: boolean,
   done: boolean
 };
 
 export type AppState = {
-  readonly tasks: Task[];
-  readonly message: string;
-};
-
-
+  tasks: Task[],
+  message: string
+}

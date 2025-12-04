@@ -1,5 +1,6 @@
 import prompts from "prompts";
 import { statusIndex, difficultyIndex, validateDescription, validateTitle, hint, validate } from "./utils.js";
+import type { TaskDTO } from "../types.js";
 
 export function getTask(taskTitles: string[] = [], task: TaskDTO = {
   title: "Mi tarea",
