@@ -1,5 +1,6 @@
 import type { Choice } from "prompts";
-import type { Action, DisabledStatus, Filter, Task } from "../types.js";
+import type { Action, DisabledStatus, Filter } from "../types.js";
+import type { Task } from "../application/Task.js";
 import { runPrompt } from "./tui.js";
 
 interface AnswerAction {

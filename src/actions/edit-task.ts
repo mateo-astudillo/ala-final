@@ -1,5 +1,6 @@
-import type { AppState, Task } from "../types.js";
+import type { TaskRepository } from "../application/TaskRepository.js";
+import type { AppState } from "../types.js";
 
-export default async function editTask(tasks: Task[]): Promise<AppState> {
-  return { tasks, message: "Tarea editada" };
+export default async function editTask(taskRepository: TaskRepository): Promise<AppState> {
+  return { taskRepository, message: "Tarea editada" };
 }

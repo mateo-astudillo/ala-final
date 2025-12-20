@@ -1,5 +1,5 @@
-import type { Answers } from "prompts";
-import type { Choices, Difficulty, Status, Task } from "../types.js";
+import type { Task } from "../application/Task.js";
+import type { Choices, Difficulty, Status } from "../types.js";
 
 const STATUS_LABELS: Record<Status, number> = {
   "to do": 0,
@@ -54,14 +54,8 @@ export function validate(value: string) {
 }
 
 export function toChoices(tasks: Task[]): Choices {
-  // return tasks.map(t =>
-  //   ({ title: t.title, value: t, description: t.description })
-  // );
-  const choices: Choices = [];
-
-  for (const task of tasks)
-    choices.push({ title: task.title, value: task, description: task.description });
-
-  return choices;
+  return tasks.map(t =>
+    ({ title: t.title, value: t, description: t.description })
+  );
 }
 

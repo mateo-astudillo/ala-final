@@ -1,7 +1,18 @@
-import type { Task, TaskDTO } from "../types.js";
+import type { Difficulty, Status, TaskDTO } from "../types.js";
 import { difficultyLabels, statusLabels } from "./utils.js";
 
-// PURE
+export interface Task {
+  readonly id: string;          // UUID
+  readonly title: string;       // less than 100
+  readonly description: string; // less than 500
+  readonly status: Status;
+  readonly difficulty: Difficulty;
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
+  readonly dueDate: Date;
+  readonly active: boolean;
+};
+
 export function fromDTO(id: string, now: Date, taskDTO: TaskDTO): Task {
   return {
     id: id,
@@ -16,7 +27,6 @@ export function fromDTO(id: string, now: Date, taskDTO: TaskDTO): Task {
   };
 };
 
-// PURE
 export function toUpdatedTask(task: Task, taskDTO: TaskDTO): Task {
   return {
     id: task.id,
@@ -31,7 +41,6 @@ export function toUpdatedTask(task: Task, taskDTO: TaskDTO): Task {
   };
 };
 
-// PURE
 export function toDeletedTask(task: Task, now: Date): Task {
   return {
     id: task.id,
@@ -46,7 +55,6 @@ export function toDeletedTask(task: Task, now: Date): Task {
   };
 };
 
-// PURE
 export function toString(task: Task): string {
   const lines = [
     `Título: ${task.title}`,
@@ -63,7 +71,6 @@ export function toString(task: Task): string {
     .join('\n');
 };
 
-// PURE
 export function toDTO(task: Task): TaskDTO {
   return {
     title: task.title,

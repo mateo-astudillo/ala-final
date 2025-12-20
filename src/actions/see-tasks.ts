@@ -1,12 +1,13 @@
-import { time } from "console";
-import type { AppState, Choices, Task } from "../types.js";
-import { selectFilter, selectTask } from "../ui/selects.js";
+import type { AppState } from "../types.js";
 import type { Choice } from "prompts";
+import { selectFilter, selectTask } from "../ui/selects.js";
+import { getActiveTasks, type TaskRepository } from "../application/TaskRepository.js";
 
-export default async function seeTasks(tasks: Task[]): Promise<AppState> {
+export default async function seeTasks(taskRepository: TaskRepository): Promise<AppState> {
+  const tasks = getActiveTasks(taskRepository)
   // NOTE this shouldn't happen
   if (!tasks.some(t => t.active))
-    return { tasks, message: "No hay tareas" };
+    return { taskRepository, message: "No hay tareas" };
 
   const answer = await selectFilter({
     toDo: !tasks.some((t) => t.active && t.status === "to do"),
@@ -16,7 +17,7 @@ export default async function seeTasks(tasks: Task[]): Promise<AppState> {
   });
 
   if (answer.filter === "back")
-    return ({ tasks, message: "Volver" })
+    return ({ taskRepository, message: "Volver" })
 
   const filter = answer.filter;
 
@@ -28,7 +29,7 @@ export default async function seeTasks(tasks: Task[]): Promise<AppState> {
     (t): Choice => ({ title: t.title, value: t })
   ));
 
-  
+  console.log(selectedTask.task);
 
-  return { tasks, message: "" };
+  return { taskRepository, message: "" };
 }

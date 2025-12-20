@@ -1,4 +1,5 @@
 import type { Choice } from "prompts";
+import type { TaskRepository } from "./application/TaskRepository.js";
 
 export type Status = "to do" | "in progress" | "done" | "cancelled";
 export type Difficulty = "hard" | "medium" | "easy";
@@ -14,18 +15,6 @@ export interface TaskDTO {
   dueDate: Date;
 }
 
-export interface Task {
-  readonly id: string;
-  readonly title: string; // less than 100
-  readonly description: string; // less than 500
-  readonly status: Status;
-  readonly difficulty: Difficulty;
-  readonly createdAt: Date;
-  readonly updatedAt: Date;
-  readonly dueDate: Date;
-  readonly active: boolean;
-};
-
 export type DisabledStatus = {
   cancelled: boolean;
   toDo: boolean,
@@ -34,6 +23,6 @@ export type DisabledStatus = {
 };
 
 export type AppState = {
-  tasks: Task[],
+  taskRepository: TaskRepository,
   message: string
 }

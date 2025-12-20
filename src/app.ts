@@ -1,39 +1,33 @@
-import seeTasks from "./actions/see-tasks.js";
 import type { Action, AppState } from "./types.js";
+import searchTask from "./actions/search-task.js";
+import seeTasks from "./actions/see-tasks.js";
+import addTask from "./actions/add-task.js";
+import { initializeTaskRepository, isEmpty } from "./application/TaskRepository.js";
 import { selectAction } from "./ui/selects.js";
 
-async function app(appState: AppState) {
-  const { tasks, message } = appState;
+async function app({ taskRepository, message }: AppState) {
   console.clear();
   console.log(message + "\n");
 
   try {
-    // const answer = await selectAction()
-    const answer = await selectAction(!appState.tasks.some(
-      (t) => t.active)
-    );
+    const answer = await selectAction(isEmpty(taskRepository));
     const action: Action = answer.action;
     switch (action) {
       case "seeTasks":
-        return app(await seeTasks(tasks));
+        return app(await seeTasks(taskRepository));
       case "searchTask":
-        return app({ tasks, message: "Buscar tarea" });
+        return app(await searchTask(taskRepository));
       case "addTask":
-        return app({ tasks, message: "Agregar tarea" });
+        return app(await addTask(taskRepository));
       case "exit":
         return;
     }
   } catch {
-    return app({ tasks, message: "Cancel" })
+    return app({ taskRepository, message: "Cancel" })
   }
 }
 
 app({
-  tasks: getByJson() ?? [],
+  taskRepository: initializeTaskRepository(),
   message: "Hola Oliva"
 });
-
-function getByJson(): import("./types.js").Task[] {
-  return [];
-}
-
